@@ -1,10 +1,11 @@
 import numpy as np
 import cv2
 import math
-cap = cv2.VideoCapture(0)
+
 trueness = True
 imagine = 'rectange15.png'
 while trueness:
+    cap = cv2.VideoCapture(0)
     ret, frame = cap.read()
     grayscale = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     blur = cv2.bilateralFilter(grayscale, 16, 50, 50)
@@ -14,7 +15,7 @@ while trueness:
 
     for i in corners:
         x, y = i.ravel()
-        cv2.circle(rectangle, (x, y), 8, 255, -1)
+        cv2.circle(frame, (x, y), 8, 255, -1)
 
     # Draw line between points to draw triangle
     x1 = corners[0].ravel()[0]
@@ -34,9 +35,9 @@ while trueness:
     expected = ((144*(line12**2))+(-373*line12)+223)
     print("anglebyformula")
     print(expected)
-    cv2.line(rectangle, (x2, y2), (x3, y3), (0, 255, 0), thickness=3, lineType=8)
-    cv2.line(rectangle, (x3, y3), (x4, y4), (0, 255, 0), thickness=3, lineType=8)
-    cv2.line(rectangle, (x4, y4), (x1, y1), (0, 255, 0), thickness=3, lineType=8)
-    cv2.line(rectangle, (x1, y1), (x2, y2), (0, 255, 0), thickness=3, lineType=8)
-    cv2.imshow('Image', rectangle)
-    cv2.waitKey(0)
+    cv2.line(frame, (x2, y2), (x3, y3), (0, 255, 0), thickness=3, lineType=8)
+    cv2.line(frame, (x3, y3), (x4, y4), (0, 255, 0), thickness=3, lineType=8)
+    cv2.line(frame, (x4, y4), (x1, y1), (0, 255, 0), thickness=3, lineType=8)
+    cv2.line(frame, (x1, y1), (x2, y2), (0, 255, 0), thickness=3, lineType=8)
+    cv2.imshow('Image', frame)
+    cv2.waitKey(1)
